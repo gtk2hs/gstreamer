@@ -43,6 +43,10 @@ x-Types-Mini-Tag:       default
 x-Types-Mini-Destructor: miniObjectUnref
 x-Types-Mini-Lib:       gstreamer
 
+Data-Dir:		demo
+Data-Files:		VorbisPlay.hs
+                Makefile
+
 Source-Repository head
   type:         darcs
   location:     http://code.haskell.org/gtk2hs/gstreamer
