@@ -81,7 +81,7 @@ import System.Glib.Attributes
 
 adapterNew :: IO Adapter
 adapterNew =
-    constructNewGObject mkAdapter {# call adapter_new #}
+    wrapNewGObject mkAdapter {# call adapter_new #}
 
 adapterClear :: AdapterClass adapterT
              => adapterT
