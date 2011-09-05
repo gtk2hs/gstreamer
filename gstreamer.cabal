@@ -16,7 +16,7 @@ Description:    This package provides a wrapper around the GStreamer C library. 
                 range from simple Ogg/Vorbis playback, audio/video streaming to complex audio
                 (mixing) and video (non-linear editing) processing.
 Category:       Media
-Tested-With:    GHC == 6.10.4
+Tested-With:    GHC == 6.10.4, GHC == 6.12.3, GHC == 7.0.4, GHC == 7.2.1
 extra-source-files: template-hsc-gtk2hs.h
                     hsgstreamer.h
                     hsgstreamer.c
