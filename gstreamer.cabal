@@ -6,7 +6,7 @@ Copyright:      (c) 2001-2010 The Gtk2Hs Team
 Author:         Peter Gavin, Axel Simon
 Maintainer:     gtk2hs-users@sourceforge.net
 Build-Type:     Custom
-Cabal-Version:  >= 1.6
+Cabal-Version:  >= 1.8
 Stability:      stable
 homepage:       http://www.haskell.org/gtk2hs/
 bug-reports:    http://hackage.haskell.org/trac/gtk2hs/
@@ -23,7 +23,7 @@ extra-source-files: template-hsc-gtk2hs.h
                     mini-hierarchy.list
                     hierarchy.list
                     marshal.list
-                    Gtk2HsSetup.hs
+                    SetupWrapper.hs SetupMain.hs Gtk2HsSetup.hs
 
 x-Types-Main-File:           Media/Streaming/GStreamer/Core/Hierarchy.chs
 x-Types-Main-ModName:        Media.Streaming.GStreamer.Core.Hierarchy
