@@ -9,7 +9,7 @@ import qualified System.Glib.Signals as G
 import Text.Printf
 import Control.Monad
 import System.IO
-import System
+import System.Environment
 
 mkElement action =
     do element <- action
