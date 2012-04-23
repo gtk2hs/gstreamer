@@ -205,7 +205,7 @@ unsafeBufferGetPtrM = do
   liftIO $ liftM castPtr $
       {# get GstBuffer->data #} ptr
 
-marshalGetNum :: (BufferClass bufferT, Integral intT, Num numT)
+marshalGetNum :: (BufferClass bufferT, Integral intT, Num numT, Eq numT)
               => (Ptr Buffer -> IO intT)
               -> numT
               -> bufferT
@@ -217,7 +217,7 @@ marshalGetNum getAction invalid buffer =
           then Just n
           else Nothing
 
-marshalGetNumM :: (BufferClass bufferT, Integral intT, Num numT, MonadIO m)
+marshalGetNumM :: (BufferClass bufferT, Integral intT, Num numT, Eq numT, MonadIO m)
               => (Ptr Buffer -> IO intT)
               -> numT
               -> MiniObjectT bufferT m (Maybe numT)
