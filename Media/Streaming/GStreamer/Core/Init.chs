@@ -49,13 +49,21 @@ import Control.Monad         ( liftM )
 import Prelude hiding        ( init )
 import System.Glib.FFI
 import System.Glib.GError
-import System.Glib.UTFString ( peekUTFString )
+import System.Glib.UTFString ( peekUTFString, withUTFString )
+import Control.Applicative
+import System.Environment
 
 {# context lib = "gstreamer" prefix = "gst" #}
 
 init :: IO ()
-init =
-    {# call init #} nullPtr nullPtr
+init = do
+  allArgs <- (:) <$> getProgName <*> getArgs
+  withMany withUTFString allArgs $ \addrs ->
+    withArrayLen addrs $ \argc argv ->
+    with argv $ \argvp ->
+    with argc $ \argcp -> do
+      {# call init #} (castPtr argcp) (castPtr argvp)
+
 
 initCheck :: IO ()
 initCheck =
