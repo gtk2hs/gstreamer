@@ -94,7 +94,7 @@ iteratorFilter (Iterator iterator) filter =
                                          -> accumT
                                          -> IO (Maybe accumT) -}
 type CIteratorFoldFunction =  {# type gpointer #}
-                           -> GValue
+                           -> Ptr GValue
                            -> {# type gpointer #}
                            -> IO {# type gboolean #}
 marshalIteratorFoldFunction :: Iterable itemT
