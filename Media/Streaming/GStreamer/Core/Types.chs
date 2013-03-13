@@ -690,6 +690,7 @@ instance Monad StructureM where
 
 --------------------------------------------------------------------
 
+-- | You should treat this type alias as opaque.
 type TagList = Structure
 mkTagList = mkStructure
 unTagList = unStructure
@@ -702,6 +703,7 @@ giveTagList :: MonadIO m
             -> m a
 giveTagList = giveStructure
 
+-- | You should treat this type alias as opaque -- no fair treating it like an actual 'String'!
 type Tag = String
 
 {# enum GstTagFlag      as TagFlag      {underscoreToCase} with prefix = "GST" deriving (Eq, Show) #}

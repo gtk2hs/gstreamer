@@ -28,7 +28,9 @@
 --   Stability   : alpha
 --   Portability : portable (depends on GHC)
 module Media.Streaming.GStreamer.Core.TagList (
-  
+
+  Tag,
+  TagList,
   StandardTag(..),
   standardTagToString,
   tagNick,
