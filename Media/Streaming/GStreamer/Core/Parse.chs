@@ -39,12 +39,20 @@ import System.Glib.FFI
 
 {# context lib = "gstreamer" prefix = "gst" #}
 
+-- N.B. When passing a GError to a parse* function, it is important to set its
+-- contents to NULL. GStreamer has assertions of the form
+-- 
+--     g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+--     
+-- Violating them may lead to a segfault when assertions are enabled.
+
 parseLaunch :: String
             -> IO (Maybe Element, Maybe GError)
 parseLaunch pipelineDescription =
     withUTFString pipelineDescription $ \cPipelineDescription ->
         alloca $ \gErrorPtr ->
-            do element <- {# call parse_launch #} cPipelineDescription (castPtr gErrorPtr) >>=
+            do poke gErrorPtr nullPtr
+               element <- {# call parse_launch #} cPipelineDescription (castPtr gErrorPtr) >>=
                               maybePeek takeObject
                gError <- peek gErrorPtr >>= maybePeek peek
                return (element, gError)
@@ -54,7 +62,8 @@ parseLaunchFromArgs :: [String]
 parseLaunchFromArgs args =
     withUTFStringArray0 args $ \cArgs ->
         alloca $ \gErrorPtr ->
-            do element <- {# call parse_launchv #} (castPtr cArgs) (castPtr gErrorPtr) >>=
+            do poke gErrorPtr nullPtr
+               element <- {# call parse_launchv #} (castPtr cArgs) (castPtr gErrorPtr) >>=
                               maybePeek takeObject
                gError <- peek gErrorPtr >>= maybePeek peek
                return (element, gError)
@@ -65,7 +74,8 @@ parseBinFromDescription :: String
 parseBinFromDescription binDescription ghostUnconnectedPads =
     withUTFString binDescription $ \cBinDescription ->
         alloca $ \gErrorPtr ->
-            do element <- {# call parse_bin_from_description #} cBinDescription
+            do poke gErrorPtr nullPtr
+               element <- {# call parse_bin_from_description #} cBinDescription
                                                                 (fromBool ghostUnconnectedPads)
                                                                 (castPtr gErrorPtr) >>=
                               maybePeek takeObject
