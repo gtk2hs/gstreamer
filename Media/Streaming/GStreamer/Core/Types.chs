@@ -156,7 +156,8 @@ module Media.Streaming.GStreamer.Core.Types (
   
   ) where
 
-import Control.Monad       ( liftM )
+import Control.Applicative
+import Control.Monad       ( liftM, ap )
 import Control.Monad.Reader
 import Control.Monad.Trans
 import Data.Ratio          ( Ratio )

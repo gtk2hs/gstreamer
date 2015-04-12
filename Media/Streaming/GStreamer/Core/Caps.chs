@@ -90,6 +90,7 @@ module Media.Streaming.GStreamer.Core.Caps (
 
 {# context lib = "gstreamer" prefix = "gst" #}
 
+import Control.Applicative
 import Control.Monad (liftM)
 import Control.Monad.Reader
 import System.Glib.FFI
