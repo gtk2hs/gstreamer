@@ -256,7 +256,7 @@ capsFromString string =
 -- | A 'Monad' for sequencing modifications to a 'Caps'.
 newtype CapsM a =
     CapsM (ReaderT (Ptr Caps) IO a)
-    deriving (Functor, Monad)
+    deriving (Functor, Applicative, Monad)
 
 askCapsPtr :: CapsM (Ptr Caps)
 askCapsPtr = CapsM $ ask

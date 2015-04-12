@@ -1,5 +1,5 @@
 Name:           gstreamer
-Version:        0.12.5.0
+Version:        0.12.5.1
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -54,7 +54,7 @@ Source-Repository head
 Library
         build-depends:  base >= 3 && < 5,
                         directory, array, bytestring, mtl,
-                        glib  >= 0.12.5.0 && < 0.13
+                        glib  >= 0.13 && < 0.14
 
         build-tools:    gtk2hsC2hs >= 0.13.9,
                         gtk2hsTypeGen, gtk2hsHookGenerator

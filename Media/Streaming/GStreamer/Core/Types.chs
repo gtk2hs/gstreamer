@@ -452,7 +452,7 @@ giveMiniObject obj action =
 newtype (MiniObjectClass miniObjectT, Monad m) =>
     MiniObjectT miniObjectT m a =
         MiniObjectT (ReaderT (Ptr miniObjectT) m a)
-        deriving (Functor, Monad, MonadTrans)
+        deriving (Functor, Applicative, Monad, MonadTrans)
 instance (MiniObjectClass miniObjectT, Monad m, MonadIO m) =>
     MonadIO (MiniObjectT miniObjectT m) where
         liftIO = MiniObjectT . liftIO
@@ -687,6 +687,13 @@ instance Monad StructureM where
                let StructureM bM = fbM a
                bM structure
     return a = StructureM $ const $ return a
+
+instance Applicative StructureM where
+    pure = return
+    (<*>) = ap
+
+instance Functor StructureM where
+    fmap = liftM
 
 --------------------------------------------------------------------
 
