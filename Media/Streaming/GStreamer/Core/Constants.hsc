@@ -332,6 +332,12 @@ data MessageType = MessageEOS             -- ^ end-of-stream
                  | MessageAsyncStart      -- ^ an element has started an async state change; used internally
                  | MessageAsyncDone       -- ^ an element has completed an async state change; used internally
 #endif
+#if GST_CHECK_VERSION(0, 10, 35)
+                 | MessageRequestState
+                 | MessageStepStart
+                 | MessageQoS
+                 | MessageProgress
+#endif
                    deriving (Eq, Bounded, Show)
 instance Enum MessageType where
     toEnum n | n == #{const GST_MESSAGE_EOS}               = MessageEOS
@@ -359,6 +365,13 @@ instance Enum MessageType where
              | n == #{const GST_MESSAGE_ASYNC_START}       = MessageAsyncStart
              | n == #{const GST_MESSAGE_ASYNC_DONE}        = MessageAsyncDone
 #endif
+#if GST_CHECK_VERSION(0, 10, 35)
+             | n == #{const GST_MESSAGE_REQUEST_STATE}    = MessageRequestState
+             | n == #{const GST_MESSAGE_STEP_START}       = MessageStepStart
+             | n == #{const GST_MESSAGE_QOS}              = MessageQoS
+             | n == #{const GST_MESSAGE_PROGRESS}         = MessageProgress
+             | otherwise = error $ "Unknown message: " ++ show n
+#endif
     fromEnum MessageEOS             = #{const GST_MESSAGE_EOS}
     fromEnum MessageError           = #{const GST_MESSAGE_ERROR}
     fromEnum MessageWarning         = #{const GST_MESSAGE_WARNING}
@@ -383,6 +396,12 @@ instance Enum MessageType where
 #if GST_CHECK_VERSION(0, 10, 13)
     fromEnum MessageAsyncStart      = #{const GST_MESSAGE_ASYNC_START}
     fromEnum MessageAsyncDone       = #{const GST_MESSAGE_ASYNC_DONE}
+#endif
+#if GST_CHECK_VERSION(0, 10, 35)
+    fromEnum MessageRequestState    = #{const GST_MESSAGE_REQUEST_STATE}
+    fromEnum MessageStepStart       = #{const GST_MESSAGE_STEP_START}
+    fromEnum MessageQoS             = #{const GST_MESSAGE_QOS}
+    fromEnum MessageProgress        = #{const GST_MESSAGE_PROGRESS}
 #endif
 instance Flags MessageType
 
