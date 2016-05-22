@@ -6,13 +6,13 @@ Copyright:      (c) 2001-2010 The Gtk2Hs Team
 Author:         Peter Gavin, Axel Simon
 Maintainer:     gtk2hs-users@lists.sourceforge.net
 Build-Type:     Custom
-Cabal-Version:  >= 1.8
+Cabal-Version:  >= 1.24
 Stability:      stable
 homepage:       http://projects.haskell.org/gtk2hs/
 bug-reports:    http://hackage.haskell.org/trac/gtk2hs/
 Synopsis:       Binding to the GStreamer open source multimedia framework.
 Description:    This package provides a wrapper around the GStreamer C library. GStreamer is a library
-                for constructing graphs of media-handling components. The applications it supports      
+                for constructing graphs of media-handling components. The applications it supports
                 range from simple Ogg/Vorbis playback, audio/video streaming to complex audio
                 (mixing) and video (non-linear editing) processing.
 Category:       Media
@@ -23,7 +23,6 @@ extra-source-files: template-hsc-gtk2hs.h
                     mini-hierarchy.list
                     hierarchy.list
                     marshal.list
-                    SetupWrapper.hs SetupMain.hs Gtk2HsSetup.hs
 
 x-Types-Main-File:           Media/Streaming/GStreamer/Core/Hierarchy.chs
 x-Types-Main-ModName:        Media.Streaming.GStreamer.Core.Hierarchy
@@ -51,6 +50,11 @@ Source-Repository head
   type:         git
   location:     https://github.com/gtk2hs/gstreamer
 
+custom-setup
+  setup-depends: base >= 4.6,
+                 Cabal >= 1.24 && < 1.25,
+                 gtk2hs-buildtools >= 0.13.1.0 && < 0.14
+
 Library
         build-depends:  base >= 3 && < 5,
                         directory, array, bytestring, mtl,
@@ -59,7 +63,7 @@ Library
         build-tools:    gtk2hsC2hs >= 0.13.9,
                         gtk2hsTypeGen, gtk2hsHookGenerator
 
-        exposed-modules: 
+        exposed-modules:
                           Media.Streaming.GStreamer.Core.Signals
                           Media.Streaming.GStreamer.Core.Hierarchy
                           Media.Streaming.GStreamer.Core.MiniHierarchy
@@ -129,7 +133,7 @@ Library
         pkgconfig-depends: gstreamer-0.10 >= 0.10,
                            gstreamer-audio-0.10 >= 0.10,
                            gstreamer-base-0.10 >= 0.10,
-                           gstreamer-controller-0.10 >= 0.10, 
+                           gstreamer-controller-0.10 >= 0.10,
                            gstreamer-dataprotocol-0.10 >= 0.10,
                            gstreamer-net-0.10 >= 0.10,
                            gstreamer-plugins-base-0.10
