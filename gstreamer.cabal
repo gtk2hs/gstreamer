@@ -1,5 +1,5 @@
 Name:           gstreamer
-Version:        0.12.7
+Version:        0.12.8
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -125,7 +125,8 @@ Library
         x-Signals-File:   Media/Streaming/GStreamer/Core/Signals.chs
         x-Signals-Modname: Media.Streaming.GStreamer.Core.Signals
         x-Signals-Types:  marshal.list
-        extensions:     ForeignFunctionInterface
+        default-language:   Haskell98
+        default-extensions: ForeignFunctionInterface
         x-c2hs-Header:  hsgstreamer.h
         includes:       hsgstreamer.h
         include-dirs:   .
