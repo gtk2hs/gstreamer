@@ -1,14 +1,41 @@
 language: haskell
+
+sudo: false
+
+matrix:
+  include:
+    - env: CABALVER=1.20 GHCVER=7.6.3
+      addons: {apt: {packages: [cabal-install-1.16,ghc-7.6.3,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev], sources: [hvr-ghc]}}
+    - env: CABALVER=1.20 GHCVER=7.8.3
+      addons: {apt: {packages: [cabal-install-1.18,ghc-7.8.3,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev], sources: [hvr-ghc]}}
+    - env: CABALVER=1.20 GHCVER=7.8.4
+      addons: {apt: {packages: [cabal-install-1.18,ghc-7.8.4,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev], sources: [hvr-ghc]}}
+    - env: CABALVER=1.22 GHCVER=7.10.1
+      addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.1,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev], sources: [hvr-ghc]}}
+    - env: CABALVER=1.22 GHCVER=7.10.2
+      addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.2,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev], sources: [hvr-ghc]}}
+    - env: CABALVER=1.24 GHCVER=8.0.1
+      addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.1,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev], sources: [hvr-ghc]}}
+    - env: CABALVER=head GHCVER=head
+      addons: {apt: {packages: [cabal-install-head,ghc-head,happy-1.19.5,alex-3.1.4,libgstreamer-plugins-base0.10-dev],  sources: [hvr-ghc]}}
+  allow_failures:
+    - env: CABALVER=head GHCVER=head
+
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get --no-install-recommends install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev alex happy
-  - cabal install Cabal
-  - cabal install cabal-install
+  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.5/bin:$PATH
+
 install:
-  - PATH="$HOME/.cabal/bin:$PATH" cabal install gtk2hs-buildtools
+  - cabal --version
+  - echo "$(ghc --version) [$(ghc --print-project-git-commit-id 2> /dev/null || echo '?')]"
+  - cabal update
+  - cabal install Cabal
+  - cabal install gtk2hs-buildtools
+
 script:
-  - PATH="$HOME/.cabal/bin:$PATH" cabal install
+  - cabal install
+
 notifications:
   irc:
     channels: "irc.freenode.net#gtk2hs"
+    skip_join: true
   email: true
